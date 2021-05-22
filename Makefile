@@ -1,10 +1,6 @@
-NAME = libftprintf.a
-OBJ_FILES = ft_printf.o flags.o field_width.o precision.o specifier.o \
-	parse_specifier_s.o parse_specifier_c.o parse_specifier_d.o \
-	parse_specifier_i.o parse_specifier_percent.o parse_specifier_x.o \
-	parse_specifier_u.o parse_specifier_p.o itob.o parse_specifier_o.o \
-	length_modifier.o parse_specifier_n.o
-HEADER_FILES = ft_printf.h
+NAME = push_swap
+OBJ_FILES = 
+HEADER_FILES = push_swap.h
 CFLAGS = -Wall -Werror -Wextra
 
 all: $(NAME)
@@ -29,4 +25,7 @@ re: fclean all
 
 bonus: all
 
-.PHONY: all clean fclean re bonus
+run: all
+	$(CC) $(CFLAGS) $(NAME) main.c -o a.out && ./a.out
+
+.PHONY: all clean fclean re bonus run
