@@ -1,9 +1,11 @@
 #include "push_swap.h"
 #include "libft/libft.h"
 #include "stdlib.h"
+#include "unistd.h"
 
 void	call_error(void)
 {
+	write(1, "Error\n", 6);
 	exit(1);
 }
 
@@ -19,23 +21,21 @@ int	is_number(char *str)
 
 t_list	*parse_args(int argc, char *argv[])
 {
-	t_list	*first;
-	t_list	*relative;
-	int		i;
-	int		numb;
+	int	i;
 
-	i = 0;
-	numb = 0;
-	if (argv[i])
-	first = ft_lstnew(NULL);//eaugh
-	if (first == NULL)
-		return (NULL);
-	relative = first;
+	i = 1;
+	if (argc < 2)
+		call_error();
 	while (i < argc)
 	{
-
+		if (!is_number(argv[i]))
+			call_error();
+		;//voeg de nummers via atoi toe aan een stack (maken via malloc), todo: beslis of het een stack van int* of int wordt
+		//misschien de returntype van parse_args aanpassen? idk
+		i++;
 	}
-	return (first);
+
+	return (NULL);
 }
 
 int	main(int argc, char *argv[])
@@ -45,4 +45,5 @@ int	main(int argc, char *argv[])
 	numbs = parse_args(argc, argv);
 	if (numbs == NULL)
 		call_error();
+	//magic calculating which commands to execute (sa, sb, .., rrb, rrr) in what order
 }
