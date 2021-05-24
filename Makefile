@@ -1,5 +1,5 @@
 NAME = push_swap
-OBJ_FILES = 
+OBJ_FILES = push_swap.o utilities.o
 HEADER_FILES = push_swap.h
 CFLAGS = -Wall -Werror -Wextra
 
@@ -7,8 +7,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ_FILES)
 	$(MAKE) bonus -C ./libft
-	cp libft/libft.a $(NAME)
-	ar -rcs $(NAME) $(OBJ_FILES)
+	$(CC) $(CFLAGS) $(OBJ_FILES) libft/libft.a -o $(NAME)
 
 %.o: %.c $(HEADER_FILES)
 	$(CC) -c $(CFLAGS) -o $@ $<
@@ -26,6 +25,6 @@ re: fclean all
 bonus: all
 
 run: all
-	$(CC) $(CFLAGS) $(NAME) main.c -o a.out && ./a.out
+	./$(NAME) 3 2 1 0
 
 .PHONY: all clean fclean re bonus run

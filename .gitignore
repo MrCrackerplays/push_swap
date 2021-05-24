@@ -1,5 +1,6 @@
 .vscode
 .DS_Store
 *.out
+push_swap
 *.o
 *.a
