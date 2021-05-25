@@ -29,7 +29,7 @@ int	is_int(char *str)
 		&& (i < 10 || ft_strncmp(str, cmp, 11) <= 0));
 }
 
-void	parse_args(int argc, char *argv[], int ***a)
+void	parse_args(int argc, char *argv[], int **a)
 {
 	int	i;
 
@@ -38,10 +38,10 @@ void	parse_args(int argc, char *argv[], int ***a)
 	{
 		if (!is_int(argv[i]))
 			call_error();
-		(*a)[i - 1] = ft_calloc(1, sizeof(int));
+		a[i - 1] = ft_calloc(1, sizeof(int));
 		if (a[i - 1] == NULL)
 			call_error();
-		*((*a)[i - 1]) = ft_atoi(argv[i]);
+		*(a[i - 1]) = ft_atoi(argv[i]);
 		i++;
 	}
 }

@@ -2,5 +2,5 @@
 # define PUSH_SWAP_H
 
 void	call_error(void);
-void	parse_args(int argc, char *argv[], int ***a);
+void	parse_args(int argc, char *argv[], int **a);
 #endif

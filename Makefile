@@ -2,6 +2,7 @@ NAME = push_swap
 OBJ_FILES = push_swap.o utilities.o
 HEADER_FILES = push_swap.h
 CFLAGS = -Wall -Werror -Wextra
+INPUT = 3 2 1 0
 
 all: $(NAME)
 
@@ -25,6 +26,8 @@ re: fclean all
 bonus: all
 
 run: all
-	./$(NAME) 3 2 1 0
+	./$(NAME) $(INPUT)
+	@echo "Checker:"
+	@./$(NAME) $(INPUT) | ./checker_Mac $(INPUT)
 
 .PHONY: all clean fclean re bonus run
