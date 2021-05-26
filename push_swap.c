@@ -2,48 +2,46 @@
 #include "libft/libft.h"
 #include "stdlib.h"
 #include "unistd.h"
+#include "stdio.h"
 
-void	move_up_stack(int **a, int **b, int depth, int size)
-{
-	;
-}
-
-char	*magic(int **a, int **b, int size)
+char	*magic(t_stacks *stacks)
 {
 	int	depth;
 
-	depth = 0;
-	while (depth < size - 1)
+	depth = stacks->top;
+	while (depth < stacks->size - 1)
 	{
-		if (a[depth] < a[depth + 1])
-			;//swep
+		if (stacks->a[depth] == stacks->a[depth + 1])
+			call_error();
+		if (stacks->a[depth] > stacks->a[depth + 1])
+		{
+			// move_over(stacks, depth);
+			// stacks->top = depth; //dit moet wel maar het kan in move_over
+			// swap_a();
+		}
 		depth++;
 	}
-	if (a || b)
-		;
 	return (NULL);
 }
 
 int	main(int argc, char *argv[])
 {
-	int		**a;
-	int		**b;
-	int		i;
-	char	*commands;
+	t_stacks	*stacks;
+	char		*commands;
 
 	if (argc < 2)
 		call_error();
-	a = ft_calloc(argc - 1, sizeof(int *));
-	b = ft_calloc(argc - 1, sizeof(int *));
-	parse_args(argc, argv, a);
-	commands = magic(a, b, argc - 1);
-	i = 0;
-	while (i < argc - 1)
-	{
-		free(a[i]);
-		i++;
-	}
-	free(a);
-	free(b);
-	// write(1, commands, ft_strlen(commands));
+	stacks = ft_calloc(1, sizeof(t_stacks));
+	if (stacks == NULL)
+		call_error();
+	stacks->a = ft_calloc(argc - 1, sizeof(int *));
+	stacks->b = ft_calloc(argc - 1, sizeof(int *));
+	if (stacks->a == NULL || stacks->b == NULL)
+		call_error();
+	parse_args(argc, argv, stacks->a);
+	commands = magic(stacks);
+	clean_stacks(stacks, argc);
+	commands = "sa\n";
+	write(1, commands, ft_strlen(commands));
+	// free(commands);
 }

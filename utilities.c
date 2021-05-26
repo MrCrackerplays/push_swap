@@ -45,3 +45,18 @@ void	parse_args(int argc, char *argv[], int **a)
 		i++;
 	}
 }
+
+void	clean_stacks(t_stacks *stacks, int argc)
+{
+	int	i;
+
+	i = 0;
+	while (i < argc - 1)
+	{
+		free((stacks->a)[i]);
+		i++;
+	}
+	free(stacks->a);
+	free(stacks->b);
+	free(stacks);
+}
