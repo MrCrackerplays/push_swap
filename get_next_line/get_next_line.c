@@ -6,16 +6,15 @@
 /*   By: pdruart <pdruart@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/12 11:10:34 by pdruart       #+#    #+#                 */
-/*   Updated: 2021/05/26 17:01:00 by pdruart       ########   odam.nl         */
+/*   Updated: 2021/05/27 13:18:25 by pdruart       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "unistd.h"
 #include "stdlib.h"
-#include "../libft/libft.h"
 
-ssize_t	find_line(int fd, char **buff, char **line)
+ssize_t	find_line(int fd, char **buff, char **line, int count)
 {
 	int		i;
 	ssize_t	bytes;
@@ -26,7 +25,8 @@ ssize_t	find_line(int fd, char **buff, char **line)
 	{
 		if (buff[0][i] == '\0')
 		{
-			bytes = read_into_buff(fd, buff);
+			if (fd != 1 || count != 0)
+				bytes = read_into_buff(fd, buff);
 			if (bytes < 0)
 				return (-1);
 			if (bytes == 0)
@@ -46,22 +46,22 @@ ssize_t	find_line(int fd, char **buff, char **line)
 int	setup_buff(char **buff, int fd)
 {
 	ssize_t	bytes;
-	char	temp_buffer[BUFFER_SIZE + 1];
+	char	tmp_buffer[BUFFER_SIZE + 1];
 
 	if (buff == NULL)
 		return (-1);
 	bytes = 1;
 	if (buff[0] == NULL)
 	{
-		bytes = read(fd, &(temp_buffer[0]), BUFFER_SIZE);
+		bytes = read(fd, &(tmp_buffer[0]), BUFFER_SIZE);
 		if (bytes < 0)
 			return (-1);
-		temp_buffer[bytes] = '\0';
+		tmp_buffer[bytes] = '\0';
 		buff[0] = malloc(sizeof(char));
 		if (buff[0] == NULL)
 			return (-1);
 		buff[0][0] = '\0';
-		if (!str_join(buff, &(temp_buffer[0]), 0, ft_strlen(&(temp_buffer[0]))))
+		if (!str_join(buff, &(tmp_buffer[0]), 0, gnl_strlen(&(tmp_buffer[0]))))
 			return (-1);
 	}
 	return (bytes);
@@ -77,7 +77,7 @@ int	get_next_line(int fd, char **line)
 	bytes = setup_buff(&buff, fd);
 	if (bytes < 0)
 		return (-1);
-	bytes = find_line(fd, &buff, line);
+	bytes = find_line(fd, &buff, line, bytes);
 	if (bytes < 1)
 	{
 		free(buff);

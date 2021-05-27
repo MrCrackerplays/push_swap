@@ -6,26 +6,25 @@
 /*   By: pdruart <pdruart@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/12 11:12:03 by pdruart       #+#    #+#                 */
-/*   Updated: 2021/05/26 17:01:03 by pdruart       ########   odam.nl         */
+/*   Updated: 2021/05/27 13:16:52 by pdruart       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "unistd.h"
 #include "stdlib.h"
-#include "../libft/libft.h"
 
-// size_t	ft_strlen(const char *str)
-// {
-// 	int	i;
+int	gnl_strlen(const char *str)
+{
+	int	i;
 
-// 	if (str == NULL)
-// 		return (0);
-// 	i = 0;
-// 	while (str[i] != '\0')
-// 		i++;
-// 	return (i);
-// }
+	if (str == NULL)
+		return (0);
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
 
 char	*ft_strndup(const char *str, size_t n)
 {
@@ -33,7 +32,7 @@ char	*ft_strndup(const char *str, size_t n)
 	size_t	len;
 	size_t	i;
 
-	len = ft_strlen(str);
+	len = gnl_strlen(str);
 	new = malloc(len + 1);
 	if (new == NULL)
 		return (NULL);
@@ -53,7 +52,7 @@ char	*str_join(char **original, char *addition, size_t offset, long j)
 	char	*temp;
 	long	i;
 
-	i = ft_strlen(original[0]) - offset;
+	i = gnl_strlen(original[0]) - offset;
 	i = (i < 0) * 0 + (i >= 0) * i;
 	temp = malloc(i + j + 1);
 	if (temp == NULL)
@@ -86,7 +85,7 @@ long	read_into_buff(int fd, char **buff)
 	if (bytes < 0)
 		return (bytes);
 	temp_buffer[bytes] = '\0';
-	if (!str_join(buff, &(temp_buffer[0]), 0, ft_strlen(&(temp_buffer[0]))))
+	if (!str_join(buff, &(temp_buffer[0]), 0, gnl_strlen(&(temp_buffer[0]))))
 		return (-1);
 	return (bytes);
 }
