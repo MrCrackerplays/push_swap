@@ -40,8 +40,11 @@ void	execute(t_stacks *stacks)
 {
 	int		i;
 	char	*str;
+	char	c[2];
 
-	str = NULL;
+	c[0] = 'a';
+	c[1] = '\0';
+	str = &(c[0]);
 	i = 1;
 	while (i > 0)
 	{
@@ -59,6 +62,7 @@ int	main(int argc, char *argv[])
 
 	if (argc < 2)
 		return (0);
+	printf("zsh:%i", argc);
 	stacks = ft_calloc(1, sizeof(t_stacks));
 	if (stacks == NULL)
 		call_error();
