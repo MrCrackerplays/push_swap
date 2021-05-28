@@ -44,31 +44,23 @@ void	execute(t_stacks *stacks)
 		// 	element = (str[1] == 'a') + (2 * (str[1] == 'b') + (-5 * str[2] != '\n'));
 		// if (str[0] == 's')
 		element = (int)0b11111111111111111111111111111111;
-		//push
+		//TODO: FIND A PATTERN FOR THE 3 LEFTOVER METHODS
+		//DONE
+		//TODO: REORDER FUNCTIONS IN actions TO MATCH THE PATTERNS:
+		//push 000X
 		element = 0b0000;
 		element = 0b0001;
-		//swap
-		// element = 0b0010;
-		// element = 0b0011;
-		// element = 0b0100;
-		// //rotate
-		// element = 0b0101;
-		// element = 0b0111;
-		// element = 0b1000;
-		// //reverse rotate
-		// element = 0b1001;
-		// element = 0b1010;
-		// element = 0b1011;
-		//TODO: FIND A PATTERN FOR THE 3 LEFTOVER METHODS
-		element = 0b0011;
-		element = 0b0111;
-		element = 0b1011;
-		//
-		element = 0b0010;
+		//swap 01XX
 		element = 0b0100;
 		element = 0b0101;
-		element = 0b1000;
+		element = 0b0111;
+		//rota XXX1
+		element = 0b0011;
 		element = 0b1001;
+		element = 0b1011;
+		//rvro XXX0
+		element = 0b0010;
+		element = 0b1000;
 		element = 0b1010;
 		printf("<>>%i:%ss\n", i, str);
 		free(str);
