@@ -53,7 +53,7 @@ void	execute(t_stacks *stacks)
 		//swap 01XX
 		element = 0b0100;
 		element = 0b0101;
-		element = 0b0111;
+		element = 0b0111;//WHERE IS 0110 AAAAAAA
 		//rota XXX1
 		element = 0b0011;
 		element = 0b1001;
