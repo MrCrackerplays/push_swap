@@ -8,7 +8,7 @@ char	*magic(t_stacks *stacks)
 {
 	int	depth;
 
-	depth = stacks->top;
+	depth = stacks->top_a;
 	while (depth < stacks->size - 1)
 	{
 		if (stacks->a[depth] == stacks->a[depth + 1])
@@ -38,6 +38,8 @@ int	main(int argc, char *argv[])
 	stacks->b = ft_calloc(argc - 1, sizeof(int *));
 	if (stacks->a == NULL || stacks->b == NULL)
 		call_error();
+	stacks->size = argc - 1;
+	stacks->amount = stacks->size;
 	parse_args(argc, argv, stacks->a);
 	commands = magic(stacks);
 	clean_stacks(stacks, argc);
