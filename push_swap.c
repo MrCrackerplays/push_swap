@@ -6,7 +6,7 @@
 
 char	*magic(t_stacks *stacks)
 {
-	int	depth;
+	unsigned int	depth;
 
 	depth = stacks->top_a;
 	while (depth < stacks->size - 1)

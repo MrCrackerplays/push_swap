@@ -3,7 +3,8 @@
 
 void	push_a(t_stacks *stacks)
 {
-	// size - amount == amount in b
+	if (stacks->size - stacks->amount == 0)
+		return ;
 	if (stacks->amount != stacks->size)
 	{
 		if (stacks->top_a == 0)
@@ -18,7 +19,8 @@ void	push_a(t_stacks *stacks)
 
 void	push_b(t_stacks *stacks)
 {
-	// size - amount == amount in b
+	if (stacks->amount == 0)
+		return ;
 	if ((stacks->size - stacks->amount) != stacks->size)
 	{
 		if (stacks->top_b == 0)

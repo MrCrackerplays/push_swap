@@ -53,7 +53,10 @@ void	clean_stacks(t_stacks *stacks, int argc)
 	i = 0;
 	while (i < argc - 1)
 	{
-		free((stacks->a)[i]);
+		if ((stacks->a)[i])
+			free((stacks->a)[i]);
+		if ((stacks->b)[i])
+			free((stacks->b)[i]);
 		i++;
 	}
 	free(stacks->a);
