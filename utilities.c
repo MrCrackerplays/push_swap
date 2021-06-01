@@ -29,37 +29,52 @@ int	is_int(char *str)
 		&& (i < 10 || ft_strncmp(str, cmp, 11) <= 0));
 }
 
-void	parse_args(int argc, char *argv[], int **a)
+void	parse_args(int argc, char *argv[], t_stacks_holder *stacks)
 {
-	int	i;
+	int		i;
+	t_stack	*a;
 
 	i = 1;
+	a = stacks->a;
 	while (i < argc)
 	{
 		if (!is_int(argv[i]))
 			call_error();
-		a[i - 1] = ft_calloc(1, sizeof(int));
-		if (a[i - 1] == NULL)
+		a->value = ft_calloc(1, sizeof(int));
+		if (a->value == NULL)
 			call_error();
-		*(a[i - 1]) = ft_atoi(argv[i]);
+		*(a->value) = ft_atoi(argv[i]);
 		i++;
+		if (i < argc)
+		{
+			add_element(a);
+			a = a->next;
+		}
 	}
 }
 
-void	clean_stacks(t_stacks *stacks, int argc)
+void clean_stacks(t_stack *a, t_stack *b)
 {
-	int	i;
+	t_stack	*iter;
 
-	i = 0;
-	while (i < argc - 1)
+	if (a)
 	{
-		if ((stacks->a)[i])
-			free((stacks->a)[i]);
-		if ((stacks->b)[i])
-			free((stacks->b)[i]);
-		i++;
+		iter = a->next;
+		while (iter != a)
+		{
+			iter = iter->next;
+			free(iter->previous);
+		}
+		free(a);
 	}
-	free(stacks->a);
-	free(stacks->b);
-	free(stacks);
+	if (b)
+	{
+		iter = b->next;
+		while (iter != b)
+		{
+			iter = iter->next;
+			free(iter->previous);
+		}
+		free(b);
+	}
 }

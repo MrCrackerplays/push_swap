@@ -1,27 +1,22 @@
 #include "push_swap.h"
+#include "stddef.h"
 
-void	rotate_a(t_stacks *stacks)
+void	rotate_a(t_stack **a)
 {
-	if (stacks->amount < 2)
+	if (*a == NULL || *a == (*a)->next)
 		return ;
-	if (stacks->top_a == stacks->size - stacks->amount)
-		stacks->top_a = 0;
-	else
-		stacks->top_a++;
+	*a = (*a)->next;
 }
 
-void	rotate_b(t_stacks *stacks)
+void	rotate_b(t_stack **b)
 {
-	if (stacks->size - stacks->amount < 2)
+	if (*b == NULL || *b == (*b)->next)
 		return ;
-	if (stacks->top_b == stacks->size - stacks->amount)
-		stacks->top_b = 0;
-	else
-		stacks->top_b++;
+	*b = (*b)->next;
 }
 
-void	rotate_ab(t_stacks *stacks)
+void	rotate_ab(t_stack **a, t_stack **b)
 {
-	rotate_a(stacks);
-	rotate_b(stacks);
+	rotate_a(a);
+	rotate_b(b);
 }

@@ -1,31 +1,22 @@
 #include "push_swap.h"
+#include "stddef.h"
 
-void	reverse_rotate_a(t_stacks *stacks)
+void	reverse_rotate_a(t_stack **a)
 {
-	if (stacks->amount < 2)
+	if (*a == NULL || *a == (*a)->next)
 		return ;
-	if (stacks->top_a + stacks->amount < stacks->size)
-		stacks->top_a = (stacks->top_a + stacks->amount - 1) % stacks->size;
-	else
-		stacks->top_a = stacks->top_a + stacks->amount - 1;
-	// if (stacks->top_a == 0)
-	// 	stacks->top_a = stacks->amount - 1;
-	// else
-	// 	stacks->top_a--;
+	*a = (*a)->previous;
 }
 
-void	reverse_rotate_b(t_stacks *stacks)
+void	reverse_rotate_b(t_stack **b)
 {
-	if (stacks->size - stacks->amount < 2)
+	if (*b == NULL || *b == (*b)->next)
 		return ;
-	if (stacks->top_b == 0)
-		stacks->top_b = stacks->size - stacks->amount - 1;
-	else
-		stacks->top_b--;
+	*b = (*b)->previous;
 }
 
-void	reverse_rotate_ab(t_stacks *stacks)
+void	reverse_rotate_ab(t_stack **a, t_stack **b)
 {
-	reverse_rotate_a(stacks);
-	reverse_rotate_b(stacks);
+	reverse_rotate_a(a);
+	reverse_rotate_b(b);
 }

@@ -4,20 +4,22 @@
 #include "unistd.h"
 #include "get_next_line/get_next_line.h"
 #include "stdlib.h"
+#include "stdio.h"
 
-void	validate(t_stacks *stacks)
+void	validate(t_stacks_holder *stacks)
 {
 	unsigned int	i;
 
+	printf("amnt:%i|top:%i\n", stacks->amount, stacks->top_a);
 	if (stacks->amount < stacks->size)
 	{
 		write(1, "KO\n", 3);
 		return ;
 	}
-	i = stacks->top_a;
+	i = 0;
 	while (i < stacks->size - 1)
 	{
-		if (*stacks->a[i % stacks->size] > *stacks->a[(i + 1) % stacks->size])
+		if (*(stacks->a[i % stacks->size]) > *(stacks->a[(i + 1) % stacks->size]))
 		{
 			write(1, "KO\n", 3);
 			return ;
@@ -27,9 +29,9 @@ void	validate(t_stacks *stacks)
 	write(1, "OK\n", 3);
 }
 
-void	execute(t_stacks *stacks)
+void	execute(t_stacks_holder *stacks)
 {
-	static	void	(*action[])(t_stacks *) = {push_a, push_b, swap_a, swap_b,
+	static	void	(*action[])(t_stacks_holder *) = {push_a, push_b, swap_a, swap_b,
 		swap_ab, rotate_a, rotate_b, rotate_ab, reverse_rotate_a,
 		reverse_rotate_b, reverse_rotate_ab};
 	int				i;
@@ -53,22 +55,20 @@ void	execute(t_stacks *stacks)
 
 int	main(int argc, char *argv[])
 {
-	t_stacks	*stacks;
+	t_stacks_holder	*stacks;
 
 	if (argc < 2)
 		return (0);
-	stacks = ft_calloc(1, sizeof(t_stacks));
+	stacks = ft_calloc(1, sizeof(t_stacks_holder));
 	if (stacks == NULL)
 		call_error();
-	stacks->a = ft_calloc(argc - 1, sizeof(int *));
-	stacks->b = ft_calloc(argc - 1, sizeof(int *));
+	stacks->a = ft_calloc(1, sizeof(t_stack));
+	stacks->b = ft_calloc(1, sizeof(t_stack));
 	if (stacks->a == NULL || stacks->b == NULL)
 		call_error();
-	stacks->size = argc - 1;
-	stacks->amount = stacks->size;
-	stacks->top_a = 0;
-	stacks->top_b = 0;
-	parse_args(argc, argv, stacks->a);
+	stacks->a->next = stacks->a;
+	stacks->a->previous = stacks->a;
+	parse_args(argc, argv, stacks);
 	execute(stacks);
 	validate(stacks);
 	clean_stacks(stacks, argc);

@@ -4,7 +4,7 @@
 #include "unistd.h"
 #include "stdio.h"
 
-char	*magic(t_stacks *stacks)
+char	*magic(t_stacks_holder *stacks)
 {
 	unsigned int	depth;
 
@@ -26,12 +26,12 @@ char	*magic(t_stacks *stacks)
 
 int	main(int argc, char *argv[])
 {
-	t_stacks	*stacks;
+	t_stacks_holder	*stacks;
 	char		*commands;
 
 	if (argc < 2)
 		call_error();
-	stacks = ft_calloc(1, sizeof(t_stacks));
+	stacks = ft_calloc(1, sizeof(t_stacks_holder));
 	if (stacks == NULL)
 		call_error();
 	stacks->a = ft_calloc(argc - 1, sizeof(int *));
