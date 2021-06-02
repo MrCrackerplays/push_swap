@@ -3,34 +3,52 @@
 
 void	push_a(t_stacks_holder *stacks)
 {
-	if (stacks->size - stacks->amount == 0)
+	t_stack	*inbetween;
+
+	if (stacks->b == NULL)
 		return ;
-	if (stacks->amount != stacks->size)
+	inbetween = stacks->b;
+	stacks->b->previous->next = stacks->b->next;
+	stacks->b->next->previous = stacks->b->previous;
+	stacks->b = stacks->b->next;
+	if (stacks->b == inbetween)
+		stacks->b = NULL;
+	if (stacks->a == NULL)
 	{
-		if (stacks->top_a == 0)
-			stacks->top_a = stacks->size;
-		else
-			stacks->top_a = (stacks->top_b - 1);
+		inbetween->previous = inbetween;
+		inbetween->next = inbetween;
+		stacks->a = inbetween;
+		return ;
 	}
-	stacks->a[stacks->top_a] = stacks->b[stacks->top_b];
-	stacks->b[stacks->top_b] = NULL;
-	stacks->top_b = (stacks->top_b + 1) % stacks->size;
-	stacks->amount++;
+	stacks->a->previous->next = inbetween;
+	inbetween->previous = stacks->a->previous;
+	inbetween->next = stacks->a;
+	stacks->a->previous = inbetween;
+	stacks->a = inbetween;
 }
 
 void	push_b(t_stacks_holder *stacks)
 {
-	if (stacks->amount == 0)
+	t_stack	*inbetween;
+
+	if (stacks->a == NULL)
 		return ;
-	if ((stacks->size - stacks->amount) != stacks->size)
+	inbetween = stacks->a;
+	stacks->a->previous->next = stacks->a->next;
+	stacks->a->next->previous = stacks->a->previous;
+	stacks->a = stacks->a->next;
+	if (stacks->a == inbetween)
+		stacks->a = NULL;
+	if (stacks->b == NULL)
 	{
-		if (stacks->top_b == 0)
-			stacks->top_b = stacks->size;
-		else
-			stacks->top_b = (stacks->top_a - 1);
+		inbetween->previous = inbetween;
+		inbetween->next = inbetween;
+		stacks->b = inbetween;
+		return ;
 	}
-	stacks->b[stacks->top_b] = stacks->a[stacks->top_a];
-	stacks->a[stacks->top_a] = NULL;
-	stacks->top_a = (stacks->top_a + 1) % stacks->size;
-	stacks->amount--;
+	stacks->b->previous->next = inbetween;
+	inbetween->previous = stacks->b->previous;
+	inbetween->next = stacks->b;
+	stacks->b->previous = inbetween;
+	stacks->b = inbetween;
 }

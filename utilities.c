@@ -29,6 +29,19 @@ int	is_int(char *str)
 		&& (i < 10 || ft_strncmp(str, cmp, 11) <= 0));
 }
 
+void	add_element(t_stack *add)
+{
+	t_stack	*value;
+
+	value = ft_calloc(1, sizeof(t_stack));
+	if (value == NULL)
+		call_error();
+	value->next = add->next;
+	value->previous = add;
+	add->next->previous = value;
+	add->next = value;
+}
+
 void	parse_args(int argc, char *argv[], t_stacks_holder *stacks)
 {
 	int		i;
@@ -53,7 +66,7 @@ void	parse_args(int argc, char *argv[], t_stacks_holder *stacks)
 	}
 }
 
-void clean_stacks(t_stack *a, t_stack *b)
+void	clean_stacks(t_stack *a, t_stack *b)
 {
 	t_stack	*iter;
 
