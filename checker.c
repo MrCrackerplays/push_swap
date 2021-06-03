@@ -4,7 +4,6 @@
 #include "unistd.h"
 #include "get_next_line/get_next_line.h"
 #include "stdlib.h"
-#include "stdio.h"
 
 void	validate(t_stacks_holder *stacks)
 {
