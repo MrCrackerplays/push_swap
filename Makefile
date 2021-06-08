@@ -1,5 +1,6 @@
 NAME = push_swap checker
-O_UNIVERSAL = utilities.o swap.o push.o rotate.o reverse_rotate.o
+O_UNIVERSAL = utilities_general.o utilities_setup.o swap.o push.o rotate.o \
+	reverse_rotate.o
 O_PUSH_SWAP = push_swap.o $(O_UNIVERSAL)
 O_CHECKER = checker.o checker_utils.o get_next_line/get_next_line.o \
 	get_next_line/get_next_line_utils.o $(O_UNIVERSAL)

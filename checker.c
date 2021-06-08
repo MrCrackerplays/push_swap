@@ -53,15 +53,7 @@ int	main(int argc, char *argv[])
 
 	if (argc < 2)
 		return (0);
-	stacks = ft_calloc(1, sizeof(t_stacks_holder));
-	if (stacks == NULL)
-		call_error();
-	stacks->a = ft_calloc(1, sizeof(t_stack));
-	if (stacks->a == NULL)
-		call_error();
-	stacks->a->next = stacks->a;
-	stacks->a->previous = stacks->a;
-	parse_args(argc, argv, stacks);
+	stacks = setup_stacks(argc, argv);
 	execute(stacks);
 	validate(stacks);
 	clean_stacks(stacks->a, stacks->b);

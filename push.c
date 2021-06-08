@@ -7,6 +7,8 @@ void	push_a(t_stacks_holder *stacks)
 
 	if (stacks->b == NULL)
 		return ;
+	stacks->size_a++;
+	stacks->size_b--;
 	inbetween = stacks->b;
 	stacks->b->previous->next = stacks->b->next;
 	stacks->b->next->previous = stacks->b->previous;
@@ -33,6 +35,8 @@ void	push_b(t_stacks_holder *stacks)
 
 	if (stacks->a == NULL)
 		return ;
+	stacks->size_b++;
+	stacks->size_a--;
 	inbetween = stacks->a;
 	stacks->a->previous->next = stacks->a->next;
 	stacks->a->next->previous = stacks->a->previous;
