@@ -1,21 +1,15 @@
 #include "push_swap.h"
 #include "libft/libft.h"
 #include "stdlib.h"
-#include "unistd.h"
 
-void	call_error(void)
-{
-	write(2, "Error\n", 6);
-	exit(1);
-}
-
-int	is_int(char *str)
+void	check_int(char *str)
 {
 	int		i;
 	char	*cmp;
 
-	if (str == NULL || (*str != '-' && !ft_isdigit(*str)))
-		return (0);
+	if (str == NULL || (*str == '-' && str[1] == '\0')
+		|| (*str != '-' && !ft_isdigit(*str)))
+		call_error();
 	cmp = "2147483647";
 	if (*str == '-')
 	{
@@ -25,8 +19,9 @@ int	is_int(char *str)
 	i = 0;
 	while (ft_isdigit(str[i]))
 		i++;
-	return (str[i] == '\0' && i <= 10
-		&& (i < 10 || ft_strncmp(str, cmp, 11) <= 0));
+	if (str[i] != '\0' || i > 10
+		|| !(i < 10 || ft_strncmp(str, cmp, 11) <= 0))
+		call_error();
 }
 
 void	add_element(t_stack *add)
@@ -51,8 +46,7 @@ void	parse_args(int argc, char *argv[], t_stacks_holder *stacks)
 	a = stacks->a;
 	while (i < argc)
 	{
-		if (!is_int(argv[i]))
-			call_error();
+		check_int(argv[i]);
 		a->value = ft_calloc(1, sizeof(int));
 		if (a->value == NULL)
 			call_error();
@@ -64,30 +58,22 @@ void	parse_args(int argc, char *argv[], t_stacks_holder *stacks)
 			a = a->next;
 		}
 	}
+	stacks->size_a = argc - 1;
+	stacks->size_b = 0;
 }
 
-void	clean_stacks(t_stack *a, t_stack *b)
+t_stacks_holder	*setup_stacks(int argc, char *argv[])
 {
-	t_stack	*iter;
+	t_stacks_holder	*stacks;
 
-	if (a)
-	{
-		iter = a->next;
-		while (iter != a)
-		{
-			iter = iter->next;
-			free(iter->previous);
-		}
-		free(a);
-	}
-	if (b)
-	{
-		iter = b->next;
-		while (iter != b)
-		{
-			iter = iter->next;
-			free(iter->previous);
-		}
-		free(b);
-	}
+	stacks = ft_calloc(1, sizeof(t_stacks_holder));
+	if (stacks == NULL)
+		call_error();
+	stacks->a = ft_calloc(1, sizeof(t_stack));
+	if (stacks->a == NULL)
+		call_error();
+	stacks->a->next = stacks->a;
+	stacks->a->previous = stacks->a;
+	parse_args(argc, argv, stacks);
+	return (stacks);
 }
