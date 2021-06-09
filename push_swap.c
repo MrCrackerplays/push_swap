@@ -79,6 +79,8 @@ t_list	*solve_five(t_stacks_holder *stacks, int amount)
 {
 	t_list	*lst;
 	t_stack	*a;
+	t_stack	*temp;
+	int		i;
 
 	lst = NULL;
 	if (amount > 3)
@@ -87,14 +89,8 @@ t_list	*solve_five(t_stacks_holder *stacks, int amount)
 		ft_lstadd_back(&lst, solve_three(stacks, 3));
 	else
 		return (solve_three(stacks, amount));
-	//magic sort b into a AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA I dislike thinking of an algorythm
-	// if (*(stacks->b->value) > *(stacks->a->previous->value))
-	// {
-	// 	ft_lstadd_back(&lst, call_operation(stacks, "pa\n", push_a, 1));
-	// 	ft_lstadd_back(&lst, call_operation(stacks, "ra\n", rotate_a, 1));
-	// }
 	a = stacks->a;
-	print_stacks(stacks);
+	// print_stacks(stacks);
 	while (stacks->size_a != amount)
 	{
 		// if (stacks->size_b == 2)
@@ -102,23 +98,43 @@ t_list	*solve_five(t_stacks_holder *stacks, int amount)
 
 		//if (currpos == first && (bval > prevval || bval < currval))
 		//	ft_lstadd_back(&lst, call_operation(stacks, "pa\n", push_a, 1));
+		if (stacks->a == a
+				&& (*(stacks->b->value) > *(stacks->a->previous->value)
+				|| *(stacks->b->value) < *(stacks->a->value)))
+			ft_lstadd_back(&lst, call_operation(stacks, "pa\n", push_a, 1));
 		//else if (prevval < bval && bval < currval)
 		//	ft_lstadd_back(&lst, call_operation(stacks, "pa\n", push_a, 1));
+		else if (*(stacks->a->previous->value) < *(stacks->b->value)
+				&& *(stacks->b->value) < *(stacks->a->value))
+			ft_lstadd_back(&lst, call_operation(stacks, "pa\n", push_a, 1));
 		//else if (bval < currval && bval < nextval)
 		//	ft_lstadd_back(&lst, call_operation(stacks, "rra\n",
 		//			reverse_rotate_a, 1));
+		else if (*(stacks->b->value) < *(stacks->a->value)
+				&& *(stacks->b->value) < *(stacks->a->next->value))
+			ft_lstadd_back(&lst, call_operation(stacks, "rra\n",
+					reverse_rotate_a, 1));
 		//else
 		//	ft_lstadd_back(&lst, call_operation(stacks, "ra\n", rotate_a, 1));
+		else
+			ft_lstadd_back(&lst, call_operation(stacks, "ra\n", rotate_a, 1));
 
 		//}
-
-
-
-		// while (*(stacks->b->value) > *(stacks->a->value)
-		// 		&& stacks->a->next != a && *(stacks->a->value) > *(stacks->a->previous->value))
-		// 	ft_lstadd_back(&lst, call_operation(stacks, "ra\n", rotate_a, 1));
-		// if (*(stacks->b->value) > *(a->value))
-		// 	ft_lstadd_back(&lst, call_operation(stacks, "pa\n", push_a, 1));
+	}
+	i = 0;
+	temp = stacks->a;
+	while (temp != a)
+	{
+		temp = temp->next;
+		i++;
+	}
+	while (stacks->a != a)
+	{
+		if (i < amount - i)
+			ft_lstadd_back(&lst, call_operation(stacks, "ra\n", rotate_a, 1));
+		else
+			ft_lstadd_back(&lst, call_operation(stacks, "rra\n",
+					reverse_rotate_a, 1));
 	}
 	print_stacks(stacks);
 	return (lst);
