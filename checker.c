@@ -39,7 +39,7 @@ void	execute(t_stacks_holder *stacks)
 	i = 1;
 	while (i > 0)
 	{
-		i = get_next_line(1, &str);
+		i = get_next_line(0, &str);
 		if (i <= 0)
 			continue ;
 		action[parse_input(str)](stacks);
