@@ -1,5 +1,5 @@
 #include "checker.h"
-#include "push_swap.h"
+#include "universal_stacks.h"
 
 int	parse_input(char *str)
 {

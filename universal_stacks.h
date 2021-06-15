@@ -1,5 +1,5 @@
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef UNIVERSAL_STACKS_H
+# define UNIVERSAL_STACKS_H
 
 typedef struct s_stack
 {
