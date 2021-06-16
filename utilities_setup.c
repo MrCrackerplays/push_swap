@@ -1,6 +1,7 @@
 #include "universal_stacks.h"
 #include "libft/libft.h"
 #include "stdlib.h"
+#include "stdio.h"
 
 void	check_int(char *str)
 {
@@ -37,6 +38,16 @@ void	add_element(t_stack *add)
 	add->next = value;
 }
 
+void	check_duplicate(int i, int argc, char *argv[])
+{
+	while (i + 1 < argc)
+	{
+		if (ft_strncmp(argv[i], argv[i + 1], -1) == 0)
+			call_error();
+		i++;
+	}
+}
+
 void	parse_args(int argc, char *argv[], t_stacks_holder *stacks)
 {
 	int		i;
@@ -47,6 +58,7 @@ void	parse_args(int argc, char *argv[], t_stacks_holder *stacks)
 	while (i < argc)
 	{
 		check_int(argv[i]);
+		check_duplicate(i, argc, argv);
 		a->value = ft_calloc(1, sizeof(int));
 		if (a->value == NULL)
 			call_error();

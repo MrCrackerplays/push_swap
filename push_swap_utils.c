@@ -52,6 +52,11 @@ t_list	*count_sort(t_stacks_holder *stacks, int direction, int exponent)
 	count = ft_calloc(10, sizeof(int));
 	if (count == NULL)
 		call_error();
+	if (direction == 1 || stacks || exponent)
+	{
+		while (i < stacks->size_a) i++;
+	}
+	return (NULL);
 	//TODO FINISH METHOD
 }
 
@@ -85,17 +90,18 @@ t_list	*radix_sort(t_stacks_holder *stacks)
 	int		exponent;
 	t_list	*order;
 
+	direction = 1;
 	if (direction == 1)
 		minmax = get_minmax(stacks->a, stacks->size_a);
 	else
 		minmax = get_minmax(stacks->b, stacks->size_b);
 	exponent = 1;
 	order = NULL;
-	direction = 1;
 	while (minmax / exponent > 0)
 	{
 		ft_lstadd_back(&order, count_sort(stacks, direction, exponent));
 		direction = -direction;
 		exponent *= 10;
 	}
+	return (order);
 }
