@@ -77,6 +77,7 @@ void	parse_args(int argc, char *argv[], t_stacks_holder *stacks)
 t_stacks_holder	*setup_stacks(int argc, char *argv[])
 {
 	t_stacks_holder	*stacks;
+	t_list			*temp;
 
 	stacks = ft_calloc(1, sizeof(t_stacks_holder));
 	if (stacks == NULL)
@@ -87,5 +88,10 @@ t_stacks_holder	*setup_stacks(int argc, char *argv[])
 	stacks->a->next = stacks->a;
 	stacks->a->previous = stacks->a;
 	parse_args(argc, argv, stacks);
+	temp = NULL;
+	while (1)
+	{
+		ft_lstadd_back(&temp, ft_lstnew());//finish fix, make the tags correct
+	}
 	return (stacks);
 }

@@ -43,15 +43,36 @@ t_list	*call_operation(t_stacks_holder *stacks, char *print,
 	return (lst);
 }
 
+int	*count_occurrances(t_stacks_holder *stacks,
+				int direction, int exponent)
+{
+	t_stack	*stack;
+	int		*count;
+
+	count = ft_calloc(10, sizeof(int));
+	if (count == NULL)
+		call_error();
+	if (direction == 1)
+		stack = stacks->a;
+	else
+		stack = stacks->b;
+	count[(*(stack->value) / exponent) % 10]++;
+	stack = stack->next;
+	while (stack != stacks->a && stack != stacks->b)
+	{
+		count[(*(stack->value) / exponent) % 10]++;
+		stack = stack->next;
+	}
+	return (count);
+}
+
 t_list	*count_sort(t_stacks_holder *stacks, int direction, int exponent)
 {
 	int	i;
 	int	*count;
 
 	i = 0;
-	count = ft_calloc(10, sizeof(int));
-	if (count == NULL)
-		call_error();
+	count = count_occurrances(stacks, direction, exponent);
 	if (direction == 1 || stacks || exponent)
 	{
 		while (i < stacks->size_a) i++;
