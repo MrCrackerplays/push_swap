@@ -74,10 +74,40 @@ void	parse_args(int argc, char *argv[], t_stacks_holder *stacks)
 	stacks->size_b = 0;
 }
 
+void	add_tags(t_stacks_holder *stacks, int argc, char *argv[])
+{
+	int	i;
+	int	*arr;
+	int	holder;
+
+	i = 0;
+	arr = ft_calloc(argc - 1, sizeof(int));
+	if (arr == NULL)
+		call_error();
+	while (i < argc)
+	{
+		arr[i] = ft_atoi(argv[i + 1]);
+		i++;
+	}
+	i = 0;
+	while (i < argc)
+	{
+		while (i > 0 && arr[i] < arr[i - 1])
+		{
+			holder = arr[i];
+			arr[i] = arr[i - 1];
+			arr[i - 1] = holder;
+			i--;
+		}
+		i++;
+	}
+}
+
 t_stacks_holder	*setup_stacks(int argc, char *argv[])
 {
 	t_stacks_holder	*stacks;
 	t_list			*temp;
+	int				i;
 
 	stacks = ft_calloc(1, sizeof(t_stacks_holder));
 	if (stacks == NULL)
@@ -89,9 +119,10 @@ t_stacks_holder	*setup_stacks(int argc, char *argv[])
 	stacks->a->previous = stacks->a;
 	parse_args(argc, argv, stacks);
 	temp = NULL;
-	while (1)
+	i = 0;
+	while (i < argc)
 	{
-		ft_lstadd_back(&temp, ft_lstnew());//finish fix, make the tags correct
+		ft_lstadd_back(&temp, ft_lstnew(i));//finish fix, make the tags correct
 	}
 	return (stacks);
 }
