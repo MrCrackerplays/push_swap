@@ -25,17 +25,17 @@ void	check_int(char *str)
 		call_error();
 }
 
-void	add_element(t_stack *add)
+void	add_element(t_stack *to_insert_after)
 {
-	t_stack	*value;
+	t_stack	*new;
 
-	value = ft_calloc(1, sizeof(t_stack));
-	if (value == NULL)
+	new = ft_calloc(1, sizeof(t_stack));
+	if (new == NULL)
 		call_error();
-	value->next = add->next;
-	value->previous = add;
-	add->next->previous = value;
-	add->next = value;
+	new->next = to_insert_after->next;
+	new->previous = to_insert_after;
+	new->next->previous = new;
+	to_insert_after->next = new;
 }
 
 void	check_duplicate(int i, int argc, char *argv[])
@@ -76,9 +76,10 @@ void	parse_args(int argc, char *argv[], t_stacks_holder *stacks)
 
 void	add_tags(t_stacks_holder *stacks, int argc, char *argv[])
 {
-	int	i;
-	int	*arr;
-	int	holder;
+	int		i;
+	int		*arr;
+	int		holder;
+	t_stack	*node;
 
 	i = 0;
 	arr = ft_calloc(argc - 1, sizeof(int));
@@ -101,12 +102,21 @@ void	add_tags(t_stacks_holder *stacks, int argc, char *argv[])
 		}
 		i++;
 	}
+	i = 0;
+	node = stacks->a;
+	while (i < argc)
+	{
+		while (*(node->value) != arr[i])
+			node = node->next;
+		node->tag = i;
+		i++;
+	}
 }
 
 t_stacks_holder	*setup_stacks(int argc, char *argv[])
 {
 	t_stacks_holder	*stacks;
-	t_list			*temp;
+	// t_list			*temp;
 	int				i;
 
 	stacks = ft_calloc(1, sizeof(t_stacks_holder));
@@ -118,11 +128,12 @@ t_stacks_holder	*setup_stacks(int argc, char *argv[])
 	stacks->a->next = stacks->a;
 	stacks->a->previous = stacks->a;
 	parse_args(argc, argv, stacks);
-	temp = NULL;
-	i = 0;
-	while (i < argc)
-	{
-		ft_lstadd_back(&temp, ft_lstnew(i));//finish fix, make the tags correct
-	}
+	add_tags(stacks, argc, argv);
+	// temp = NULL;
+	// i = 0;
+	// while (i < argc)
+	// {
+	// 	ft_lstadd_back(&temp, ft_lstnew(i));//finish fix, make the tags correct
+	// }
 	return (stacks);
 }

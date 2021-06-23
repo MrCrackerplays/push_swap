@@ -49,18 +49,18 @@ int	*count_occurrances(t_stacks_holder *stacks,
 	t_stack	*stack;
 	int		*count;
 
-	count = ft_calloc(10, sizeof(int));
+	count = ft_calloc(2, sizeof(int));
 	if (count == NULL)
 		call_error();
 	if (direction == 1)
 		stack = stacks->a;
 	else
 		stack = stacks->b;
-	count[(*(stack->value) / exponent) % 10]++;
+	count[(stack->tag / exponent) & 1]++;
 	stack = stack->next;
 	while (stack != stacks->a && stack != stacks->b)
 	{
-		count[(*(stack->value) / exponent) % 10]++;
+		count[(stack->tag / exponent) & 1]++;
 		stack = stack->next;
 	}
 	return (count);
@@ -68,8 +68,8 @@ int	*count_occurrances(t_stacks_holder *stacks,
 
 t_list	*count_sort(t_stacks_holder *stacks, int direction, int exponent)
 {
-	int	i;
-	int	*count;
+	int			i;
+	int			*count;
 
 	i = 0;
 	count = count_occurrances(stacks, direction, exponent);
@@ -77,52 +77,47 @@ t_list	*count_sort(t_stacks_holder *stacks, int direction, int exponent)
 	{
 		while (i < stacks->size_a) i++;
 	}
+	free(count);
 	return (NULL);
 	//TODO FINISH METHOD
 }
 
-int	get_minmax(t_stack *stack, int size)
+int	get_max(t_stack *stack, int size)
 {
-	int	min;
-	int	max;
-	int	i;
+	unsigned int	max;
+	int				i;
 
 	i = 0;
-	min = 0;
 	max = 0;
 	while (i < size)
 	{
-		if (min > *stack->value)
-			min = *stack->value;
-		if (max < *stack->value)
-			max = *stack->value;
+		if (max < stack->tag)
+			max = stack->tag;
 		stack = stack->next;
 		i++;
 	}
-	if (min < -max)
-		return (min);
 	return (max);
 }
 
 t_list	*radix_sort(t_stacks_holder *stacks)
 {
 	int		direction;
-	int		minmax;
 	int		exponent;
+	int		max;
 	t_list	*order;
 
 	direction = 1;
 	if (direction == 1)
-		minmax = get_minmax(stacks->a, stacks->size_a);
+		max = get_max(stacks->a, stacks->size_a);
 	else
-		minmax = get_minmax(stacks->b, stacks->size_b);
+		max = get_max(stacks->b, stacks->size_b);
 	exponent = 1;
 	order = NULL;
-	while (minmax / exponent > 0)
+	while (max / exponent > 0)
 	{
 		ft_lstadd_back(&order, count_sort(stacks, direction, exponent));
 		direction = -direction;
-		exponent *= 10;
+		exponent *= 2;
 	}
 	return (order);
 }

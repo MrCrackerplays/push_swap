@@ -10,7 +10,7 @@ t_list	*solve_three(t_stacks_holder *stacks, int amount)
 	if (amount == 1)
 		return (NULL);
 	if (amount == 2 && *(stacks->a->value) > *(stacks->a->next->value))
-		return (call_operation(stacks, "sa\n", swap_a, 1));
+		return (call_operation(stacks, "ra\n", rotate_a, 1));
 	if (amount == 2)
 		return (NULL);
 	if (((*(stacks->a->value) > *(stacks->a->next->value))
@@ -107,23 +107,12 @@ t_list	*solve_five(t_stacks_holder *stacks, int amount)
 t_list	*solve_n(t_stacks_holder *stacks, int amount)
 {
 	t_list	*lst;
-	t_list	*temp;
 
-	lst = NULL;
 	if (amount)
-		return (NULL);
-	while (stacks->a != NULL)
-	{
 		;
-	}
-	while (stacks->b != NULL)
-	{
-		push_a(stacks);
-		temp = ft_lstnew("pa\n");
-		if (temp == NULL)
-			call_error();
-		ft_lstadd_back(&lst, temp);
-	}
+	lst = radix_sort(stacks);
+	ft_lstadd_back(&lst, call_operation(stacks, "pa\n", push_a,
+			stacks->size_b));
 	return (lst);
 }
 
