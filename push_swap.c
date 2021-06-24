@@ -1,4 +1,5 @@
-#include "push_swap.h"
+#include "push_swap_utils.h"
+#include "push_swap_sorting.h"
 #include "stdlib.h"
 #include "unistd.h"
 
