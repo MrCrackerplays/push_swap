@@ -1,6 +1,7 @@
 #include "push_swap_utils.h"
 #include "push_swap_sorting.h"
 #include "stdlib.h"
+#include "stdio.h"
 
 t_list	*solve_three(t_stacks_holder *stacks, int amount)
 {

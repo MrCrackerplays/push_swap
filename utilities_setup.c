@@ -81,13 +81,13 @@ void	add_tags(t_stacks_holder *stacks, int argc, char *argv[])
 	int		holder;
 	t_stack	*node;
 
-	i = 0;
+	i = 1;
 	arr = ft_calloc(argc - 1, sizeof(int));
 	if (arr == NULL)
 		call_error();
 	while (i < argc)
 	{
-		arr[i] = ft_atoi(argv[i + 1]);
+		arr[i - 1] = ft_atoi(argv[i]);
 		i++;
 	}
 	i = 0;
@@ -104,20 +104,22 @@ void	add_tags(t_stacks_holder *stacks, int argc, char *argv[])
 	}
 	i = 0;
 	node = stacks->a;
+	printf("1\n");
 	while (i < argc)
 	{
-		while (*(node->value) != arr[i])
+		while (*(node->value) != arr[i])//infinite loop, idk why yet TODO: fix
 			node = node->next;
 		node->tag = i;
 		i++;
 	}
+	printf("2\n");
 }
 
 t_stacks_holder	*setup_stacks(int argc, char *argv[])
 {
 	t_stacks_holder	*stacks;
 	// t_list			*temp;
-	int				i;
+	// int				i;
 
 	stacks = ft_calloc(1, sizeof(t_stacks_holder));
 	if (stacks == NULL)

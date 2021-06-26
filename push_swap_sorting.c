@@ -1,6 +1,7 @@
 #include "universal_stacks.h"
 #include "push_swap_utils.h"
 #include "push_swap_sorting.h"
+#include "stdlib.h"
 
 t_number_base_info	*create_base_info(const int base, int exponent, int digit)
 {
@@ -20,7 +21,6 @@ int	*count_occurances(t_stacks_holder *stacks,
 {
 	t_stack	*stack;
 	int		*count;
-	int		i;
 
 	count = ft_calloc(base, sizeof(int));
 	if (count == NULL)

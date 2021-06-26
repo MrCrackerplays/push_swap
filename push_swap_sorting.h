@@ -10,9 +10,9 @@ typedef enum e_direction
 }		t_direction;
 typedef struct s_number_base_info
 {
-	int	base;
-	int	exponent;
-	int	digit;
+	unsigned int	base;
+	unsigned int	exponent;
+	unsigned int	digit;
 }		t_number_base_info;
 
 t_list	*radix_sort(t_stacks_holder *stacks);
