@@ -1,7 +1,8 @@
 NAME = push_swap checker
 O_UNIVERSAL = utilities_general.o utilities_setup.o swap.o push.o rotate.o \
 	reverse_rotate.o
-O_PUSH_SWAP = push_swap.o push_swap_utils.o push_swap_sorting.o $(O_UNIVERSAL)
+O_PUSH_SWAP = push_swap.o push_swap_utils.o push_swap_sorting.o \
+	push_swap_sorting_actions.o $(O_UNIVERSAL)
 O_CHECKER = checker.o checker_utils.o get_next_line/get_next_line.o \
 	get_next_line/get_next_line_utils.o $(O_UNIVERSAL)
 HEADER_FILES = universal_stacks.h push_swap_utils.h push_swap_sorting.h \

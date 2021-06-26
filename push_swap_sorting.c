@@ -2,27 +2,17 @@
 #include "push_swap_utils.h"
 #include "push_swap_sorting.h"
 
-t_list	*rotate_to_first_of_digit(t_stacks_holder *stacks, int digit,
-		t_direction direction, t_stack *origin)//TODO fix not having base and exponent (to get digit of any number in stack) by using a new struct
+t_number_base_info	*create_base_info(const int base, int exponent, int digit)
 {
-	t_list	*actions;
+	t_number_base_info	*base_info;
 
-	actions = NULL;
-	return (actions);
-}
-
-t_list	*push_all_of_digit(t_stacks_holder *stacks, int digit,
-		t_direction direction, int amount)//TODO fix not having base and exponent (to get digit of any number in stack) by using a new struct
-{
-	t_list	*actions;
-
-	actions = NULL;
-	while (amount > 0)
-	{
-		while (stacks->a->tag)
-		amount--;
-	}
-	return (actions);
+	base_info = ft_calloc(1, sizeof(t_number_base_info));
+	if (base_info == NULL)
+		call_error();
+	base_info->base = base;
+	base_info->digit = digit;
+	base_info->exponent = exponent;
+	return (base_info);
 }
 
 int	*count_occurances(t_stacks_holder *stacks,
@@ -68,10 +58,10 @@ t_list	*count_sort(t_stacks_holder *stacks, t_direction dir, int exponent,
 	{
 		if (count[digit] > 0)
 		{
-			ft_lstadd_back(&actions, rotate_to_first_of_digit(stacks, digit,
-					dir, origin));
-			ft_lstadd_back(&actions, push_all_of_digit(stacks, digit, dir,
-					count[digit]));
+			ft_lstadd_back(&actions, rotate_to_first_of_digit(stacks, origin,
+					create_base_info(base, exponent, digit), dir));
+			ft_lstadd_back(&actions, push_all_of_digit(stacks, count[digit],
+					create_base_info(base, exponent, digit), dir));
 		}
 		digit++;
 	}

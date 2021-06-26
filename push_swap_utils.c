@@ -1,4 +1,5 @@
 #include "push_swap_utils.h"
+#include "unistd.h"
 
 // void	print_stacks(t_stacks_holder *stacks)
 // {
@@ -41,4 +42,13 @@ t_list	*call_operation(t_stacks_holder *stacks, char *print,
 		i++;
 	}
 	return (lst);
+}
+
+void	print_commands(t_list *commands)
+{
+	while (commands != NULL)
+	{
+		write(1, commands->content, ft_strlen(commands->content));
+		commands = commands->next;
+	}
 }

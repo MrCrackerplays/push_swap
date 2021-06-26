@@ -1,7 +1,6 @@
 #include "push_swap_utils.h"
 #include "push_swap_sorting.h"
 #include "stdlib.h"
-#include "unistd.h"
 
 t_list	*solve_three(t_stacks_holder *stacks, int amount)
 {
@@ -115,15 +114,6 @@ t_list	*solve_n(t_stacks_holder *stacks, int amount)
 	ft_lstadd_back(&lst, call_operation(stacks, "pa\n", push_a,
 			stacks->size_b));
 	return (lst);
-}
-
-void	print_commands(t_list *commands)
-{
-	while (commands != NULL)
-	{
-		write(1, commands->content, ft_strlen(commands->content));
-		commands = commands->next;
-	}
 }
 
 int	main(int argc, char *argv[])
