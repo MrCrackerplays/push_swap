@@ -39,18 +39,15 @@ t_list	*solve_five(t_stacks_holder *stacks, int amount)
 
 	lst = NULL;
 	if (amount > 3)
+	{
 		lst = call_operation(stacks, "pb\n", push_b, amount - 3);
-	if (amount > 3)
 		ft_lstadd_back(&lst, solve_three(stacks, 3));
+	}
 	else
 		return (solve_three(stacks, amount));
 	a = stacks->a;
-	// print_stacks(stacks);
 	while (stacks->size_a != amount)
 	{
-		// if (stacks->size_b == 2)
-		//{
-
 		//if (currpos == first && bval > prevval)
 		//	ft_lstadd_back(&lst, call_operation(stacks, "pa\n", push_a, 1));
 		if (stacks->a == a
@@ -83,8 +80,6 @@ t_list	*solve_five(t_stacks_holder *stacks, int amount)
 		//	ft_lstadd_back(&lst, call_operation(stacks, "ra\n", rotate_a, 1));
 		else
 			ft_lstadd_back(&lst, call_operation(stacks, "ra\n", rotate_a, 1));
-
-		//}
 	}
 	i = 0;
 	temp = stacks->a;
@@ -101,7 +96,6 @@ t_list	*solve_five(t_stacks_holder *stacks, int amount)
 			ft_lstadd_back(&lst, call_operation(stacks, "rra\n",
 					reverse_rotate_a, 1));
 	}
-	// print_stacks(stacks);
 	return (lst);
 }
 
@@ -109,12 +103,24 @@ t_list	*solve_n(t_stacks_holder *stacks, int amount)
 {
 	t_list	*lst;
 
-	if (amount)
-		;
-	lst = radix_sort(stacks);
+	lst = radix_sort(stacks, amount);
 	ft_lstadd_back(&lst, call_operation(stacks, "pa\n", push_a,
 			stacks->size_b));
 	return (lst);
+}
+
+int	is_sorted(t_stack *a)
+{
+	t_stack	*temp;
+
+	temp = a->next;
+	while (*(temp->previous->value) < *(temp->value))
+	{
+		if (temp == a)
+			return (1);
+		temp = temp->next;
+	}
+	return (temp == a);
 }
 
 int	main(int argc, char *argv[])
@@ -125,7 +131,9 @@ int	main(int argc, char *argv[])
 	if (argc < 2)
 		call_error();
 	stacks = setup_stacks(argc, argv);
-	if (argc < 7)
+	if (is_sorted(stacks->a))
+		commands = NULL;
+	else if (argc - 1 < 8)
 		commands = solve_five(stacks, argc - 1);
 	else
 		commands = solve_n(stacks, argc - 1);

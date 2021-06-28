@@ -1,6 +1,29 @@
 #include "push_swap_sorting.h"
 #include "push_swap_utils.h"
 #include "stdlib.h"
+#include "stdio.h"
+
+void	print_stacks(t_stacks_holder *stacks)
+{
+	int	i;
+
+	i = 0;
+	while (i < stacks->size_a || i < stacks->size_b)
+	{
+		if (i < stacks->size_a)
+		{
+			printf("%3i|", stacks->a->tag);
+			stacks->a = stacks->a->next;
+		}
+		if (i < stacks->size_b)
+		{
+			printf("%3i", stacks->b->tag);
+			stacks->b = stacks->b->next;
+		}
+		printf("\n");
+		i++;
+	}
+}
 
 t_list	*execute_rotations(t_stacks_holder *stacks, t_direction direction,
 		 int size, int forward_rotations)
@@ -35,22 +58,34 @@ t_list	*rotate_to_first_of_digit(t_stacks_holder *stacks, t_stack *origin,
 	t_stack	*stack;
 	int		forward_rotations;
 	int		size;
+	int		i;
 
+	// printf("pre in rotate_to_first_of_digit, origin:%p | a:%p | b:%p\n", origin, stacks->a, stacks->b);
+	// if (origin == stacks->a)
+	// 	printf("to_b\n");
+	// else
+	// 	printf("to_a\n");
+	// print_stacks(stacks);
+	while (((origin->tag / number_holder->exponent)
+			% number_holder->base) != number_holder->digit)
+	{
+		// printf("tag:%i | exponent:%i | base:%i | a:%i != digit:%i\n", origin->tag, number_holder->exponent, number_holder->base, ((origin->tag / number_holder->exponent) % number_holder->base), number_holder->digit);
+		origin = origin->next;
+	}
+	// printf("post\n");
 	stack = stacks->b;
 	if (direction == to_b)
 		stack = stacks->a;
-	size = stacks->size_b;
-	if (direction == to_b)
-		size = stacks->size_a;
 	forward_rotations = 0;
-	while (((origin->tag / number_holder->exponent)
-			& number_holder->base) != number_holder->digit)
-		origin = origin->next;
+	i = 0;
 	while (stack->tag != origin->tag)
 	{
 		stack = stack->next;
 		forward_rotations++;
 	}
+	size = stacks->size_b;
+	if (direction == to_b)
+		size = stacks->size_a;
 	return (execute_rotations(stacks, direction, size, forward_rotations));
 }
 
@@ -63,7 +98,7 @@ t_list	*push_all_of_digit_to_a(t_stacks_holder *stacks, int amount,
 	while (amount > 0)
 	{
 		while (((stacks->a->tag / base_info->exponent)
-				& base_info->base) != base_info->digit)
+				% base_info->base) != base_info->digit)
 			ft_lstadd_back(&actions, call_operation(stacks, "rb\n",
 					rotate_b, 1));
 		ft_lstadd_back(&actions, call_operation(stacks, "pa\n",
@@ -83,7 +118,7 @@ t_list	*push_all_of_digit_to_b(t_stacks_holder *stacks, int amount,
 	while (amount > 0)
 	{
 		while (((stacks->a->tag / base_info->exponent)
-				& base_info->base) != base_info->digit)
+				% base_info->base) != base_info->digit)
 			ft_lstadd_back(&actions, call_operation(stacks, "ra\n",
 					rotate_a, 1));
 		ft_lstadd_back(&actions, call_operation(stacks, "pb\n",

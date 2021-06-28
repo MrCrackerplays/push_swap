@@ -2,6 +2,7 @@
 #include "push_swap_utils.h"
 #include "push_swap_sorting.h"
 #include "stdlib.h"
+#include "stdio.h"
 
 t_number_base_info	*create_base_info(const int base, int exponent, int digit)
 {
@@ -50,12 +51,13 @@ t_list	*count_sort(t_stacks_holder *stacks, t_direction dir, int exponent,
 	count = count_occurances(stacks, dir, exponent, base);
 	digit = 0;
 	actions = NULL;
-	if (dir == to_b)
-		origin = stacks->a;
-	else
-		origin = stacks->b;
 	while (digit < base)
 	{
+		if (dir == to_b)
+			origin = stacks->a;
+		else
+			origin = stacks->b;
+		printf("aja%i,dir:%2i | origin:%p\n", digit, dir, origin);
 		if (count[digit] > 0)
 		{
 			ft_lstadd_back(&actions, rotate_to_first_of_digit(stacks, origin,
@@ -69,10 +71,9 @@ t_list	*count_sort(t_stacks_holder *stacks, t_direction dir, int exponent,
 	return (actions);
 }
 
-t_list	*radix_sort(t_stacks_holder *stacks)
+t_list	*radix_sort(t_stacks_holder *stacks, int max)
 {
 	int			exponent;
-	int			max;
 	t_direction	direction;
 	t_list		*order;
 	const int	base = 4;
