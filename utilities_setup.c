@@ -91,7 +91,7 @@ void	add_tags(t_stacks_holder *stacks, int argc, char *argv[])
 		i++;
 	}
 	i = 0;
-	while (i < argc)
+	while (i < argc - 1)
 	{
 		while (i > 0 && arr[i] < arr[i - 1])
 		{
@@ -104,15 +104,13 @@ void	add_tags(t_stacks_holder *stacks, int argc, char *argv[])
 	}
 	i = 0;
 	node = stacks->a;
-	printf("1\n");
-	while (i < argc)
+	while (i < argc - 1)
 	{
-		while (*(node->value) != arr[i])//infinite loop, idk why yet TODO: fix
+		while (*(node->value) != arr[i])
 			node = node->next;
 		node->tag = i;
 		i++;
 	}
-	printf("2\n");
 }
 
 t_stacks_holder	*setup_stacks(int argc, char *argv[])
