@@ -3,27 +3,29 @@
 #include "stdlib.h"
 #include "stdio.h"
 
-void	print_stacks(t_stacks_holder *stacks)
-{
-	int	i;
+// void	print_stacks(t_stacks_holder *stacks)
+// {
+// 	int	i;
 
-	i = 0;
-	while (i < stacks->size_a || i < stacks->size_b)
-	{
-		if (i < stacks->size_a)
-		{
-			printf("%3i|", stacks->a->tag);
-			stacks->a = stacks->a->next;
-		}
-		if (i < stacks->size_b)
-		{
-			printf("%3i", stacks->b->tag);
-			stacks->b = stacks->b->next;
-		}
-		printf("\n");
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < stacks->size_a || i < stacks->size_b)
+// 	{
+// 		if (i < stacks->size_a)
+// 		{
+// 			printf("%3i|", stacks->a->tag);
+// 			stacks->a = stacks->a->next;
+// 		}
+// 		else
+// 			printf("   |");
+// 		if (i < stacks->size_b)
+// 		{
+// 			printf("%3i", stacks->b->tag);
+// 			stacks->b = stacks->b->next;
+// 		}
+// 		printf("\n");
+// 		i++;
+// 	}
+// }
 
 t_list	*execute_rotations(t_stacks_holder *stacks, t_direction direction,
 		 int size, int forward_rotations)
@@ -60,7 +62,7 @@ t_list	*rotate_to_first_of_digit(t_stacks_holder *stacks, t_stack *origin,
 	int		size;
 	int		i;
 
-	// printf("pre in rotate_to_first_of_digit, origin:%p | a:%p | b:%p\n", origin, stacks->a, stacks->b);
+	printf("pre tag:%i | exponent:%i | base:%i | a:%i ?= digit:%i\n", origin->tag, number_holder->exponent, number_holder->base, ((origin->tag / number_holder->exponent) % number_holder->base), number_holder->digit);
 	// if (origin == stacks->a)
 	// 	printf("to_b\n");
 	// else
@@ -69,7 +71,7 @@ t_list	*rotate_to_first_of_digit(t_stacks_holder *stacks, t_stack *origin,
 	while (((origin->tag / number_holder->exponent)
 			% number_holder->base) != number_holder->digit)
 	{
-		// printf("tag:%i | exponent:%i | base:%i | a:%i != digit:%i\n", origin->tag, number_holder->exponent, number_holder->base, ((origin->tag / number_holder->exponent) % number_holder->base), number_holder->digit);
+		printf("tag:%i | exponent:%i | base:%i | a:%i != digit:%i\n", origin->tag, number_holder->exponent, number_holder->base, ((origin->tag / number_holder->exponent) % number_holder->base), number_holder->digit);
 		origin = origin->next;
 	}
 	// printf("post\n");
@@ -80,8 +82,17 @@ t_list	*rotate_to_first_of_digit(t_stacks_holder *stacks, t_stack *origin,
 	i = 0;
 	while (stack->tag != origin->tag)
 	{
-		stack = stack->next;
-		forward_rotations++;
+		if (direction == to_b)
+		{
+			stack = stack->next;
+			forward_rotations++;
+		}
+		else
+		{
+			stack = stack->previous;
+			forward_rotations--;
+		}
+		
 	}
 	size = stacks->size_b;
 	if (direction == to_b)
@@ -93,19 +104,29 @@ t_list	*push_all_of_digit_to_a(t_stacks_holder *stacks, int amount,
 		t_number_base_info *base_info)
 {
 	t_list	*actions;
+	int		moves_left;
 
 	actions = NULL;
+	moves_left = stacks->size_b;
 	while (amount > 0)
 	{
-		while (((stacks->a->tag / base_info->exponent)
+		while (((stacks->b->tag / base_info->exponent)
 				% base_info->base) != base_info->digit)
+		{
 			ft_lstadd_back(&actions, call_operation(stacks, "rb\n",
 					rotate_b, 1));
-		ft_lstadd_back(&actions, call_operation(stacks, "pa\n",
-				push_a, 1));
+			moves_left--;
+		}
+		ft_lstadd_back(&actions, call_operation(stacks, "pa\n", push_a, 1));
 		amount--;
+		moves_left--;
 	}
 	free(base_info);
+	while (moves_left > 0)
+	{
+		ft_lstadd_back(&actions, call_operation(stacks, "rb\n",rotate_b, 1));
+		moves_left--;
+	}
 	return (actions);
 }
 
@@ -113,19 +134,35 @@ t_list	*push_all_of_digit_to_b(t_stacks_holder *stacks, int amount,
 		t_number_base_info *base_info)
 {
 	t_list	*actions;
+	int		moves_left;
 
 	actions = NULL;
+	moves_left = stacks->size_a;
+	// printf("voor, movesleft:%i\n", moves_left);
+	// print_stacks(stacks);
 	while (amount > 0)
 	{
 		while (((stacks->a->tag / base_info->exponent)
 				% base_info->base) != base_info->digit)
+		{
 			ft_lstadd_back(&actions, call_operation(stacks, "ra\n",
 					rotate_a, 1));
-		ft_lstadd_back(&actions, call_operation(stacks, "pb\n",
-				push_b, 1));
+			moves_left--;
+		}
+		ft_lstadd_back(&actions, call_operation(stacks, "pb\n", push_b, 1));
 		amount--;
+		moves_left--;
 	}
 	free(base_info);
+	// printf("tussen, movesleft:%i\n", moves_left);
+	// print_stacks(stacks);
+	while (moves_left > 0)
+	{
+		ft_lstadd_back(&actions, call_operation(stacks, "ra\n",rotate_a, 1));
+		moves_left--;
+	}
+	// printf("na, movesleft:%i\n", moves_left);
+	// print_stacks(stacks);
 	return (actions);
 }
 

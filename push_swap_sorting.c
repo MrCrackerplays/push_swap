@@ -4,6 +4,30 @@
 #include "stdlib.h"
 #include "stdio.h"
 
+void	print_stacks(t_stacks_holder *stacks)
+{
+	int	i;
+
+	i = 0;
+	while (i < stacks->size_a || i < stacks->size_b)
+	{
+		if (i < stacks->size_a)
+		{
+			printf("%3i|", stacks->a->tag);
+			stacks->a = stacks->a->next;
+		}
+		else
+			printf("   |");
+		if (i < stacks->size_b)
+		{
+			printf("%3i", stacks->b->tag);
+			stacks->b = stacks->b->next;
+		}
+		printf("\n");
+		i++;
+	}
+}
+
 t_number_base_info	*create_base_info(const int base, int exponent, int digit)
 {
 	t_number_base_info	*base_info;
@@ -57,19 +81,24 @@ t_list	*count_sort(t_stacks_holder *stacks, t_direction dir, int exponent,
 			origin = stacks->a;
 		else
 			origin = stacks->b;
-		printf("aja%i,dir:%2i | origin:%p\n", digit, dir, origin);
+		// printf("aja%i,dir:%2i | origin:%p\n", digit, dir, origin);
 		if (count[digit] > 0)
 		{
-			ft_lstadd_back(&actions, rotate_to_first_of_digit(stacks, origin,
-					create_base_info(base, exponent, digit), dir));
+			// ft_lstadd_back(&actions, rotate_to_first_of_digit(stacks, origin,
+			// 		create_base_info(base, exponent, digit), dir));
 			ft_lstadd_back(&actions, push_all_of_digit(stacks, count[digit],
 					create_base_info(base, exponent, digit), dir));
 		}
 		digit++;
 	}
+	// printf("end of count\n");
 	free(count);
 	return (actions);
 }
+
+/*
+ *	max amount of actions using radix https://www.geogebra.org/m/ymxz5htp
+ */
 
 t_list	*radix_sort(t_stacks_holder *stacks, int max)
 {
@@ -84,9 +113,13 @@ t_list	*radix_sort(t_stacks_holder *stacks, int max)
 	order = NULL;
 	while (max / exponent > 0)
 	{
+		printf("inside\n");
+		print_stacks(stacks);
 		ft_lstadd_back(&order, count_sort(stacks, direction, exponent, base));
 		direction = -direction;
 		exponent *= base;
 	}
+	printf("outside\n");
+	print_stacks(stacks);
 	return (order);
 }
