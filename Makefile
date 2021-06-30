@@ -7,7 +7,11 @@ O_CHECKER = checker.o checker_utils.o get_next_line/get_next_line.o \
 	get_next_line/get_next_line_utils.o $(O_UNIVERSAL)
 HEADER_FILES = universal_stacks.h push_swap_utils.h push_swap_sorting.h \
 	checker.h
+ifdef DEBUG
+CFLAGS = -g -Wall -Werror -Wextra
+else
 CFLAGS = -Wall -Werror -Wextra
+endif
 INPUT = 3 2 1 0
 
 all: $(NAME)
@@ -40,4 +44,7 @@ run: all
 	@echo "Checker:"
 	@./push_swap $(INPUT) | ./checker_Mac $(INPUT)
 
-.PHONY: all clean fclean re bonus run
+debug:
+	$(MAKE) DEBUG=1 push_swap
+
+.PHONY: all clean fclean re bonus run debug
