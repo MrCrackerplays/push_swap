@@ -1,7 +1,6 @@
 #include "push_swap_utils.h"
 #include "push_swap_sorting.h"
 #include "stdlib.h"
-#include "stdio.h"
 
 t_list	*solve_three(t_stacks_holder *stacks, int amount)
 {
@@ -101,9 +100,10 @@ t_list	*solve_five(t_stacks_holder *stacks, int amount)
 
 t_list	*solve_n(t_stacks_holder *stacks, int amount)
 {
-	t_list	*lst;
+	t_list		*lst;
+	const int	base = 4;
 
-	lst = radix_sort(stacks, amount);
+	lst = radix_sort(stacks, amount, base);
 	ft_lstadd_back(&lst, call_operation(stacks, "pa\n", push_a,
 			stacks->size_b));
 	return (lst);
