@@ -1,7 +1,6 @@
 #include "universal_stacks.h"
+#include "utilities_setup_tags.h"
 #include "libft/libft.h"
-#include "stdlib.h"
-#include "stdio.h"
 
 void	check_int(char *str)
 {
@@ -74,50 +73,9 @@ void	parse_args(int argc, char *argv[], t_stacks_holder *stacks)
 	stacks->size_b = 0;
 }
 
-void	add_tags(t_stacks_holder *stacks, int argc, char *argv[])
-{
-	int		i;
-	int		*arr;
-	int		holder;
-	t_stack	*node;
-
-	i = 1;
-	arr = ft_calloc(argc - 1, sizeof(int));
-	if (arr == NULL)
-		call_error();
-	while (i < argc)
-	{
-		arr[i - 1] = ft_atoi(argv[i]);
-		i++;
-	}
-	i = 0;
-	while (i < argc - 1)
-	{
-		while (i > 0 && arr[i] < arr[i - 1])
-		{
-			holder = arr[i];
-			arr[i] = arr[i - 1];
-			arr[i - 1] = holder;
-			i--;
-		}
-		i++;
-	}
-	i = 0;
-	node = stacks->a;
-	while (i < argc - 1)
-	{
-		while (*(node->value) != arr[i])
-			node = node->next;
-		node->tag = i;
-		i++;
-	}
-}
-
 t_stacks_holder	*setup_stacks(int argc, char *argv[])
 {
 	t_stacks_holder	*stacks;
-	// t_list			*temp;
-	// int				i;
 
 	stacks = ft_calloc(1, sizeof(t_stacks_holder));
 	if (stacks == NULL)
@@ -129,11 +87,5 @@ t_stacks_holder	*setup_stacks(int argc, char *argv[])
 	stacks->a->previous = stacks->a;
 	parse_args(argc, argv, stacks);
 	add_tags(stacks, argc, argv);
-	// temp = NULL;
-	// i = 0;
-	// while (i < argc)
-	// {
-	// 	ft_lstadd_back(&temp, ft_lstnew(i));//finish fix, make the tags correct
-	// }
 	return (stacks);
 }
