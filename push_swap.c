@@ -7,7 +7,7 @@ int	is_sorted(t_stack *a)
 	t_stack	*temp;
 
 	temp = a->next;
-	while (*(temp->previous->value) < *(temp->value))
+	while (temp->previous->value < temp->value)
 	{
 		if (temp == a)
 			return (1);
@@ -26,7 +26,7 @@ int	main(int argc, char *argv[])
 	stacks = setup_stacks(argc, argv);
 	if (is_sorted(stacks->a))
 		commands = NULL;
-	else if (argc - 1 < 8)
+	else if (argc - 1 < 10)
 		commands = solve_small(stacks, argc - 1);
 	else
 		commands = solve_n(stacks, argc - 1);

@@ -47,7 +47,7 @@ void	apply_tags(t_stacks_holder *stacks, int *arr, int argc)
 	node = stacks->a;
 	while (i < argc - 1)
 	{
-		while (*(node->value) != arr[i])
+		while (node->value != arr[i])
 			node = node->next;
 		node->tag = i;
 		i++;

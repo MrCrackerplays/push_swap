@@ -1,6 +1,6 @@
 #include "universal_stacks.h"
 #include "push_swap_utils.h"
-#include "push_swap_sorting.h"
+#include "push_swap_radix_sorting.h"
 #include "stdlib.h"
 
 t_number_base_info	*create_base_info(const int base, int exponent, int digit)

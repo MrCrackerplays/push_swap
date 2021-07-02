@@ -58,10 +58,7 @@ void	parse_args(int argc, char *argv[], t_stacks_holder *stacks)
 	{
 		check_int(argv[i]);
 		check_duplicate(i, argc, argv);
-		a->value = ft_calloc(1, sizeof(int));
-		if (a->value == NULL)
-			call_error();
-		*(a->value) = ft_atoi(argv[i]);
+		a->value = ft_atoi(argv[i]);
 		i++;
 		if (i < argc)
 		{

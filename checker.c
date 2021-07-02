@@ -17,7 +17,7 @@ void	validate(t_stacks_holder *stacks)
 	iter = stacks->a;
 	while (iter->next != stacks->a)
 	{
-		if (*(iter->value) >= *(iter->next->value))
+		if (iter->value >= iter->next->value)
 		{
 			write(1, "KO\n", 3);
 			return ;

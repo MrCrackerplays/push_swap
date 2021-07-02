@@ -3,7 +3,7 @@
 
 typedef struct s_stack
 {
-	int				*value;
+	int				value;
 	unsigned int	tag;
 	struct s_stack	*next;
 	struct s_stack	*previous;

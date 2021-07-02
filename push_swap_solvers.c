@@ -8,19 +8,19 @@ t_list	*solve_three(t_stacks_holder *stacks, int amount)
 	actions = NULL;
 	if (amount == 1)
 		return (NULL);
-	if (amount == 2 && *(stacks->a->value) > *(stacks->a->next->value))
+	if (amount == 2 && stacks->a->value > stacks->a->next->value)
 		return (call_operation(stacks, "ra\n", rotate_a, 1));
 	if (amount == 2)
 		return (NULL);
-	if (((*(stacks->a->value) > *(stacks->a->next->value))
-			+ (*(stacks->a->next->value) > *(stacks->a->previous->value))
-			+ (*(stacks->a->previous->value) > *(stacks->a->value))) == 2)
+	if (((stacks->a->value > stacks->a->next->value)
+			+ (stacks->a->next->value > stacks->a->previous->value)
+			+ (stacks->a->previous->value > stacks->a->value)) == 2)
 		ft_lstadd_back(&actions, call_operation(stacks, "sa\n", swap_a, 1));
-	if (*(stacks->a->previous->value) > *(stacks->a->value)
-		&& *(stacks->a->value) < *(stacks->a->next->value)
-		&& *(stacks->a->next->value) < *(stacks->a->previous->value))
+	if (stacks->a->previous->value > stacks->a->value
+		&& stacks->a->value < stacks->a->next->value
+		&& stacks->a->next->value < stacks->a->previous->value)
 		return (actions);
-	if (*(stacks->a->value) > *(stacks->a->next->value))
+	if (stacks->a->value > stacks->a->next->value)
 		ft_lstadd_back(&actions, call_operation(stacks, "ra\n", rotate_a, 1));
 	else
 		ft_lstadd_back(&actions, call_operation(stacks, "rra\n",
@@ -36,19 +36,19 @@ t_stack	*insert_back_to_a(t_stacks_holder *stacks, int amount, t_list **cmmnds)
 	while (stacks->size_a != amount)
 	{
 		if (stacks->a == a
-			&& *(stacks->b->value) > *(stacks->a->previous->value))
+			&& stacks->b->value > stacks->a->previous->value)
 			ft_lstadd_back(cmmnds, call_operation(stacks, "pa\n", push_a, 1));
 		else if (stacks->a == a
-			&& *(stacks->b->value) < *(stacks->a->value))
+			&& stacks->b->value < stacks->a->value)
 		{
 			ft_lstadd_back(cmmnds, call_operation(stacks, "pa\n", push_a, 1));
 			a = stacks->a;
 		}
-		else if (*(stacks->a->previous->value) < *(stacks->b->value)
-			&& *(stacks->b->value) < *(stacks->a->value))
+		else if (stacks->a->previous->value < stacks->b->value
+			&& stacks->b->value < stacks->a->value)
 			ft_lstadd_back(cmmnds, call_operation(stacks, "pa\n", push_a, 1));
-		else if (*(stacks->b->value) < *(stacks->a->value)
-			&& *(stacks->b->value) < *(stacks->a->next->value))
+		else if (stacks->b->value < stacks->a->value
+			&& stacks->b->value < stacks->a->next->value)
 			ft_lstadd_back(cmmnds, call_operation(stacks, "rra\n",
 					reverse_rotate_a, 1));
 		else
