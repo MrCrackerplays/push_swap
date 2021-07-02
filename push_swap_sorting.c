@@ -2,31 +2,6 @@
 #include "push_swap_utils.h"
 #include "push_swap_sorting.h"
 #include "stdlib.h"
-// #include "stdio.h"
-
-// void	aprint_stacks(t_stacks_holder *stacks)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < stacks->size_a || i < stacks->size_b)
-// 	{
-// 		if (i < stacks->size_a)
-// 		{
-// 			printf("%3i|", stacks->a->tag);
-// 			stacks->a = stacks->a->next;
-// 		}
-// 		else
-// 			printf("          |");
-// 		if (i < stacks->size_b)
-// 		{
-// 			printf("%3i", stacks->b->tag);
-// 			stacks->b = stacks->b->next;
-// 		}
-// 		printf("\n");
-// 		i++;
-// 	}
-// }
 
 t_number_base_info	*create_base_info(const int base, int exponent, int digit)
 {
@@ -88,10 +63,6 @@ t_list	*count_sort(t_stacks_holder *stacks, t_direction dir, int exponent,
 	free(count);
 	return (actions);
 }
-
-/*
- *	max amount of actions using radix https://www.geogebra.org/m/ymxz5htp
- */
 
 t_list	*radix_sort(t_stacks_holder *stacks, int max, const int base)
 {
