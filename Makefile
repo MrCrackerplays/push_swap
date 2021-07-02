@@ -1,11 +1,11 @@
 NAME = push_swap checker
 O_UNIVERSAL = utilities_general.o utilities_setup.o utilities_setup_tags.o \
 	swap.o push.o rotate.o reverse_rotate.o
-O_PUSH_SWAP = push_swap.o push_swap_utils.o push_swap_sorting.o \
+O_PUSH_SWAP = push_swap.o push_swap_utils.o push_swap_radix_sorting.o \
 	push_swap_sorting_actions.o push_swap_solvers.o $(O_UNIVERSAL)
 O_CHECKER = checker.o checker_utils.o get_next_line/get_next_line.o \
 	get_next_line/get_next_line_utils.o $(O_UNIVERSAL)
-HEADER_FILES = universal_stacks.h push_swap_utils.h push_swap_sorting.h \
+HEADER_FILES = universal_stacks.h push_swap_utils.h push_swap_radix_sorting.h \
 	checker.h utilities_setup_tags.h push_swap_solvers.h
 ifdef DEBUG
 CFLAGS = -g -Wall -Werror -Wextra

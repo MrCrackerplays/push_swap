@@ -1,5 +1,5 @@
 #include "push_swap_utils.h"
-#include "push_swap_sorting.h"
+#include "push_swap_radix_sorting.h"
 
 t_list	*solve_three(t_stacks_holder *stacks, int amount)
 {
