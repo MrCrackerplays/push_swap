@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   push_swap_sorting_actions.c                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: pdruart <pdruart@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/08/04 13:38:51 by pdruart       #+#    #+#                 */
+/*   Updated: 2021/08/04 13:38:52 by pdruart       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap_radix_sorting.h"
 #include "push_swap_utils.h"
 #include "stdlib.h"

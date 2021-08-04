@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   utilities_setup_tags.c                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: pdruart <pdruart@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/08/04 13:39:35 by pdruart       #+#    #+#                 */
+/*   Updated: 2021/08/04 13:39:35 by pdruart       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "utilities_setup_tags.h"
 #include "libft/libft.h"
 #include "stdlib.h"

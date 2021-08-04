@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   utilities_setup.c                                  :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: pdruart <pdruart@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/08/04 13:39:40 by pdruart       #+#    #+#                 */
+/*   Updated: 2021/08/04 13:39:41 by pdruart       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "universal_stacks.h"
 #include "utilities_setup_tags.h"
 #include "libft/libft.h"

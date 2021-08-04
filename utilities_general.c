@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   utilities_general.c                                :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: pdruart <pdruart@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/08/04 13:39:30 by pdruart       #+#    #+#                 */
+/*   Updated: 2021/08/04 13:39:31 by pdruart       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "universal_stacks.h"
 #include "libft/libft.h"
 #include "stdlib.h"
