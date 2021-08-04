@@ -1,5 +1,17 @@
-#ifndef PUSH_SWAP_SORTING_H
-# define PUSH_SWAP_SORTING_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   push_swap_radix_sorting.h                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: pdruart <pdruart@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/08/04 13:37:05 by pdruart       #+#    #+#                 */
+/*   Updated: 2021/08/04 13:37:36 by pdruart       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PUSH_SWAP_RADIX_SORTING_H
+# define PUSH_SWAP_RADIX_SORTING_H
 # include "universal_stacks.h"
 # include "libft/libft.h"
 
