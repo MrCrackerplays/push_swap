@@ -6,7 +6,7 @@
 /*   By: pdruart <pdruart@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/04 13:39:40 by pdruart       #+#    #+#                 */
-/*   Updated: 2021/08/04 13:39:41 by pdruart       ########   odam.nl         */
+/*   Updated: 2021/08/09 02:22:06 by pdruart       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,12 @@ void	add_element(t_stack *to_insert_after)
 
 void	check_duplicate(int i, int argc, char *argv[])
 {
+	int	start;
+
+	start = i;
 	while (i + 1 < argc)
 	{
-		if (ft_strncmp(argv[i], argv[i + 1], -1) == 0)
+		if (ft_strncmp(argv[start], argv[i + 1], -1) == 0)
 			call_error();
 		i++;
 	}
