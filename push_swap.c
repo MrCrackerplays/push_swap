@@ -6,7 +6,7 @@
 /*   By: pdruart <pdruart@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/04 13:39:02 by pdruart       #+#    #+#                 */
-/*   Updated: 2021/08/04 13:39:02 by pdruart       ########   odam.nl         */
+/*   Updated: 2021/09/06 15:31:34 by pdruart       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char *argv[])
 	t_list			*commands;
 
 	if (argc < 2)
-		call_error();
+		exit(1);
 	stacks = setup_stacks(argc, argv);
 	if (is_sorted(stacks->a))
 		commands = NULL;
